@@ -95,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                 toast("Register");
             }
         });
+//        Test upload
 //        btnGetImg.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
