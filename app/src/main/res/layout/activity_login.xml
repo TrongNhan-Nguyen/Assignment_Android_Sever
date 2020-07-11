@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingHorizontal="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity">
+
+    <TextView
+        android:text="Login to continue"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/login_etEmail"
+        android:layout_marginTop="10dp"
+        android:hint="Enter Email"
+        android:text="nhan@gmail.com"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/login_etPassword"
+        android:layout_marginTop="10dp"
+        android:hint="Enter Password"
+        android:text="123456"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/login_btnLogin"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/login_btnClear"
+            android:text="Clear"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/login_btnRegister"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+<!--    <ImageView-->
+<!--        android:id="@+id/login_img"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:background="#DFDFDB"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/login_btnGetImg"-->
+<!--        android:text="Get Image"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+</LinearLayout>
