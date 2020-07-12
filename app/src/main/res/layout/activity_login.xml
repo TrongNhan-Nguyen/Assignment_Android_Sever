@@ -26,6 +26,7 @@
     <EditText
         android:id="@+id/login_etPassword"
         android:layout_marginTop="10dp"
+        android:inputType="textPassword"
         android:hint="Enter Password"
         android:text="123456"
         android:layout_width="match_parent"
@@ -48,23 +49,6 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/login_btnRegister"
-            android:text="Register"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
-<!--    <ImageView-->
-<!--        android:id="@+id/login_img"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:background="#DFDFDB"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"/>-->
-<!--    <Button-->
-<!--        android:id="@+id/login_btnGetImg"-->
-<!--        android:text="Get Image"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
+
 </LinearLayout>
