@@ -157,7 +157,7 @@ public class Adapter_Registration extends RecyclerView.Adapter<Adapter_Registrat
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             if (response.code() == 200){
-                                clg(response.body());
+                                dialog.dismiss();
                                 Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
                             }else if (response.code() == 201){
                                 clg(response.body());
