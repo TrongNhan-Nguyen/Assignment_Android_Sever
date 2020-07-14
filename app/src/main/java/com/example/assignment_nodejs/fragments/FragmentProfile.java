@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.example.assignment_nodejs.Retrofit_Manager;
 import com.example.assignment_nodejs.Student_Api;
 import com.example.assignment_nodejs.activities.MainActivity;
 import com.example.assignment_nodejs.models.Student;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +36,7 @@ public class FragmentProfile extends Fragment {
     private View view;
     private TextView tvName, tvEmail, tvPhone, tvSex, tvBirthday;
     private TextView tvClass,tvSpecialized;
+    private ImageView img;
     private Button btnChangePass;
     private Student_Api studentApi;
     public FragmentProfile() {
@@ -52,6 +55,7 @@ public class FragmentProfile extends Fragment {
 
     private void initView() {
         studentApi = Retrofit_Manager.retrofit.create(Student_Api.class);
+        String url = "http://10.0.2.2:3000/uploads/avatar/";
         tvName = (TextView) view.findViewById(R.id.fProfile_tvName);
         tvEmail = (TextView) view.findViewById(R.id.fProfile_tvEmail);
         tvPhone = (TextView) view.findViewById(R.id.fProfile_tvPhone);
@@ -60,6 +64,7 @@ public class FragmentProfile extends Fragment {
         tvClass = (TextView) view.findViewById(R.id.fProfile_tvClass);
         tvSpecialized = (TextView) view.findViewById(R.id.fProfile_tvSpecialized);
         btnChangePass = (Button) view.findViewById(R.id.fProfile_btnChangePass);
+        img = (ImageView) view.findViewById(R.id.fProfile_img);
 
         Call<Student> call = studentApi.getProfile(MainActivity.STUDENT.get_id());
         call.enqueue(new Callback<Student>() {
@@ -74,6 +79,8 @@ public class FragmentProfile extends Fragment {
                     tvSex.setText(student.getSex());
                     tvSpecialized.setText(student.getSpecialized());
                     tvEmail.setText(student.getEmail());
+                    Picasso.get().load(url+student.getImg()).into(img);
+
                 }
             }
 

@@ -41,7 +41,7 @@ public class Adapter_News extends RecyclerView.Adapter<Adapter_News.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         News news = newsList.get(position);
-        String url = "http://10.0.2.2:3000/uploads/";
+        String url = "http://10.0.2.2:3000/uploads/news/";
         holder.tvTitle.setText(news.getTitle());
         holder.tvDesc.setText(news.getDesc());
         Picasso.get().load(url+news.getImg()).into(holder.img);

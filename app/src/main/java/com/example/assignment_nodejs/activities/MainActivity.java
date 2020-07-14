@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.assignment_nodejs.R;
@@ -23,6 +24,7 @@ import com.example.assignment_nodejs.fragments.FragmentSchedule;
 import com.example.assignment_nodejs.fragments.FragmentTranscript;
 import com.example.assignment_nodejs.models.Student;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
@@ -81,11 +83,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private void showInfo(){
         if (STUDENT != null){
+            String url = "http://10.0.2.2:3000/uploads/avatar/";
             View headerDrawer = navigationView.getHeaderView(0);
+            ImageView img = (ImageView) headerDrawer.findViewById(R.id.header_img);
             TextView tvName = headerDrawer.findViewById(R.id.header_tvName);
             TextView tvEmail = headerDrawer.findViewById(R.id.header_tvEmail);
             tvName.setText(STUDENT.getName());
             tvEmail.setText(STUDENT.getEmail());
+            Picasso.get().load(url+STUDENT.getImg()).into(img);
         }
     }
     private void replaceFragment(Fragment fragment) {

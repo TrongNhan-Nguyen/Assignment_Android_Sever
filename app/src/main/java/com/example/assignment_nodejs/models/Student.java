@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Student {
     private String _id, email, password, type;
     private String name,phoneNumber,sex, specialized;
-    private String birthday,schedule,transcript;
+    private String birthday,schedule,transcript,img;
     @SerializedName("class")
     private String studentClass;
 
@@ -97,6 +97,14 @@ public class Student {
         this.transcript = transcript;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getStudentClass() {
         return studentClass;
     }
@@ -119,6 +127,7 @@ public class Student {
                 ", birthday='" + birthday + '\'' +
                 ", schedule='" + schedule + '\'' +
                 ", transcript='" + transcript + '\'' +
+                ", img='" + img + '\'' +
                 ", studentClass='" + studentClass + '\'' +
                 '}';
     }
