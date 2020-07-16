@@ -32,11 +32,9 @@ public interface Student_Api {
     @GET("/student/registration")
     Call<List<Subject>> getRegistration();
 
-
     //    Post
     @POST("/login")
     Call<Student> login(@Body HashMap<String, String> map);
-
     @POST("/student/profile")
     Call<String> updatePass(@Query("studentID") String studentID, @Body HashMap<String,String> map);
 

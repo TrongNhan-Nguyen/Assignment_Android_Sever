@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                                 toast("Login Successfully");
                                 Student student = response.body();
                                 MainActivity.STUDENT = student;
+                                finish();
                                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                 break;
                             case 201:

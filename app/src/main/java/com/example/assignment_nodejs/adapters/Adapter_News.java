@@ -56,6 +56,7 @@ public class Adapter_News extends RecyclerView.Adapter<Adapter_News.ViewHolder> 
                         .getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_frameContainer, detail)
+                        .addToBackStack(null)
                         .commit();
             }
         });

@@ -68,7 +68,7 @@ public class Fragment_NewsDetail extends Fragment {
                 @Override
                 public void onResponse(Call<News> call, Response<News> response) {
                    if (response.code() == 200){
-                       String url = "http://10.0.2.2:3000/uploads/" + response.body().getImg();
+                       String url = "http://10.0.2.2:3000/uploads/news/" + response.body().getImg();
                        Picasso.get().load(url).into(img);
                        tvTitle.setText(response.body().getTitle());
                        tvDesc.setText(response.body().getTitle());
