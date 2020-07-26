@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.assignment_nodejs.R;
 import com.example.assignment_nodejs.Retrofit_Manager;
 import com.example.assignment_nodejs.Student_Api;
+import com.example.assignment_nodejs.activities.LoginActivity;
 import com.example.assignment_nodejs.activities.MainActivity;
 import com.example.assignment_nodejs.adapters.Adapter_Transcript;
 import com.example.assignment_nodejs.models.Subject;
@@ -62,7 +63,7 @@ public class FragmentTranscript extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
 
-        Call<String> call = studentApi.getTranscript(MainActivity.STUDENT.get_id());
+        Call<String> call = studentApi.getTranscript(LoginActivity.STUDENT.get_id());
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.assignment_nodejs.R;
 import com.example.assignment_nodejs.Retrofit_Manager;
 import com.example.assignment_nodejs.Student_Api;
+import com.example.assignment_nodejs.activities.LoginActivity;
 import com.example.assignment_nodejs.activities.MainActivity;
 import com.example.assignment_nodejs.models.Subject;
 import com.example.assignment_nodejs.models.Transcript;
@@ -152,7 +153,7 @@ public class Adapter_Registration extends RecyclerView.Adapter<Adapter_Registrat
                     map.put("days", days);
                     map.put("startDate", startDate);
                     map.put("endDate", endDate);
-                    Call<String> call = studentApi.registration(MainActivity.STUDENT.get_id(),map);
+                    Call<String> call = studentApi.registration(LoginActivity.STUDENT.get_id(),map);
                     call.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {

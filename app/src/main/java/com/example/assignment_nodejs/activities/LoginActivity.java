@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnClear, btnLogin;
     private Student_Api studentApi;
-
+    public static Student STUDENT = new Student();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                             case 200:
                                 toast("Login Successfully");
                                 Student student = response.body();
-                                MainActivity.STUDENT = student;
-                                finish();
+                                STUDENT = student;
                                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                 break;
                             case 201:

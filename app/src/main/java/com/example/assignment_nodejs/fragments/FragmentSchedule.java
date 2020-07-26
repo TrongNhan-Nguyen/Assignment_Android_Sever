@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.assignment_nodejs.R;
 import com.example.assignment_nodejs.Retrofit_Manager;
 import com.example.assignment_nodejs.Student_Api;
+import com.example.assignment_nodejs.activities.LoginActivity;
 import com.example.assignment_nodejs.activities.MainActivity;
 import com.example.assignment_nodejs.adapters.Adapter_Schedule;
 import com.example.assignment_nodejs.models.Schedule;
@@ -67,7 +68,7 @@ public class FragmentSchedule extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(decoration);
-        Call<String> call = studentApi.getSchedule(MainActivity.STUDENT.get_id());
+        Call<String> call = studentApi.getSchedule(LoginActivity.STUDENT.get_id());
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
