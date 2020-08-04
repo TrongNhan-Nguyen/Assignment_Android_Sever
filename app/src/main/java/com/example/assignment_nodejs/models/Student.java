@@ -2,12 +2,24 @@ package com.example.assignment_nodejs.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Student {
     private String _id, email, password, type;
     private String name,phoneNumber,sex, specialized;
     private String birthday,schedule,transcript,img;
     @SerializedName("class")
     private String studentClass;
+    private List<Inbox> inbox;
+
+
+    public List<Inbox> getInbox() {
+        return inbox;
+    }
+
+    public void setInbox(List<Inbox> inbox) {
+        this.inbox = inbox;
+    }
 
     public String get_id() {
         return _id;
@@ -113,6 +125,7 @@ public class Student {
         this.studentClass = studentClass;
     }
 
+
     @Override
     public String toString() {
         return "Student{" +
@@ -129,6 +142,7 @@ public class Student {
                 ", transcript='" + transcript + '\'' +
                 ", img='" + img + '\'' +
                 ", studentClass='" + studentClass + '\'' +
+                ", inboxList=" + inbox +
                 '}';
     }
 }

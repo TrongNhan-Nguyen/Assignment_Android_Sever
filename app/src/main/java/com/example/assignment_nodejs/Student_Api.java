@@ -1,5 +1,6 @@
 package com.example.assignment_nodejs;
 
+import com.example.assignment_nodejs.models.Inbox;
 import com.example.assignment_nodejs.models.News;
 import com.example.assignment_nodejs.models.Student;
 import com.example.assignment_nodejs.models.Subject;
@@ -35,6 +36,10 @@ public interface Student_Api {
     Call<Student> getProfile(@Query("studentID") String studentID);
     @GET("/student/registration")
     Call<List<Subject>> getRegistration();
+    @GET("/student/email")
+    Call<List<Inbox>> getInboxList(@Query("userID") String userID);
+    @GET("/student/email/{emailID}")
+    Call<String> getInbox(@Path("emailID") String emailID,@Query("userID") String userID);
 
     //    Post
     @POST("/login")

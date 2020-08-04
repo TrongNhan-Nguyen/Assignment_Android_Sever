@@ -3,12 +3,19 @@ package com.example.assignment_nodejs.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,11 +25,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.assignment_nodejs.R;
+import com.example.assignment_nodejs.Retrofit_Manager;
+import com.example.assignment_nodejs.Student_Api;
+import com.example.assignment_nodejs.fragments.FragmentInbox;
 import com.example.assignment_nodejs.fragments.FragmentNews;
 import com.example.assignment_nodejs.fragments.FragmentProfile;
 import com.example.assignment_nodejs.fragments.FragmentRegistration;
 import com.example.assignment_nodejs.fragments.FragmentSchedule;
 import com.example.assignment_nodejs.fragments.FragmentTranscript;
+import com.example.assignment_nodejs.models.Inbox;
 import com.example.assignment_nodejs.models.Student;
 import com.google.android.material.navigation.NavigationView;
 import com.karumi.dexter.Dexter;
@@ -34,11 +45,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    public static NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
-    private  Student student = LoginActivity.STUDENT;
+    private Student student = LoginActivity.STUDENT;
+    private Student_Api api;
+    private NotificationCompat.Builder builder;
+    private NotificationManagerCompat notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         runtimePermission();
         getSupportActionBar().setTitle("Student Management System");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        api = Retrofit_Manager.retrofit.create(Student_Api.class);
         drawerLayout = (DrawerLayout) findViewById(R.id.main_drawer);
         navigationView = (NavigationView) findViewById(R.id.main_navigation);
         navigationView.setNavigationItemSelectedListener(this);
@@ -55,6 +74,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerToggle.syncState();
         replaceFragment(new FragmentNews());
         showInfo();
+        createNotificationChannel();
+        builder = new NotificationCompat.Builder(this, "1")
+                .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
+                .setContentTitle("Notification from Admin")
+                .setContentText("Check your inbox for details")
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        notificationManager = NotificationManagerCompat.from(this);
+        setBadgesInbox();
+
+
     }
 
     @Override
@@ -71,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.drawer_transcript:
                 replaceFragment(new FragmentTranscript());
+                break;
+            case R.id.drawer_inbox:
+                replaceFragment(new FragmentInbox());
                 break;
             case R.id.drawer_profile:
                 replaceFragment(new FragmentProfile());
@@ -89,6 +122,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) return true;
         return super.onOptionsItemSelected(item);
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notify";
+            String description = "Notify from Admin";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("1", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
     private void showInfo(){
         if (student != null){
@@ -120,6 +164,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 permissionToken.continuePermissionRequest();
             }
         }).check();
+    }
+    private void setBadgesInbox(){
+        MenuItem inboxMenu = MainActivity.navigationView.getMenu().findItem(R.id.drawer_inbox);
+        TextView number = (TextView) inboxMenu.getActionView();
+        number.setGravity(Gravity.CENTER_VERTICAL);
+        number.setTypeface(null, Typeface.BOLD);
+        number.setTextColor(Color.RED);
+        Call<List<Inbox>> call = api.getInboxList(LoginActivity.STUDENT.get_id());
+        call.enqueue(new Callback<List<Inbox>>() {
+            @Override
+            public void onResponse(Call<List<Inbox>> call, Response<List<Inbox>> response) {
+                int count = 0;
+                List<Inbox> inboxList = response.body();
+                for (Inbox inbox : inboxList) {
+                    if (!inbox.isActive()) {
+                        count++;
+                    }
+                }
+
+                if (count>0){
+                    notificationManager.notify(1, builder.build());
+
+                }
+                number.setText(count + "");
+            }
+
+            @Override
+            public void onFailure(Call<List<Inbox>> call, Throwable t) {
+                clg(t.getMessage());
+            }
+        });
     }
     private void clg(String s){
         Log.d("log",s);
